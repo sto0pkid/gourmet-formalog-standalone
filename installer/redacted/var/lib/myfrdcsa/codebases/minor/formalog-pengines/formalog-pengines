@@ -1,0 +1,60 @@
+#!/usr/bin/env perl
+
+use BOSS::Config;
+use Formalog::Client::Pengines;
+use KBS2::Util;
+use MyFRDCSA qw(Dir ConcatDir);
+use UniLang::Agent::Agent;
+use UniLang::Util::Message;
+
+# UniLang::Agent::Agent
+
+use Data::Dumper;
+
+$UNIVERSAL::agent = UniLang::Agent::Agent->new
+  (
+   Name => "Formalog-Pengines-Proxy",
+   ReceiveHandler => \&Receive,
+  );
+
+sub Receive {
+  my %args = @_;
+  # print Dumper({Message => $args{Message}});
+  my $result1 = FormalogQuery
+    (
+     Agent => $args{Message}{Data}{Agent},
+     Vars => ['_prolog_list',Var('?Results')],
+     Query => $args{Message}{Data}{Query},
+    );
+  # print Dumper({Result1 => $result1});
+  $UNIVERSAL::agent->QueryAgentReply
+    (
+     Message => $args{Message},
+     Data => {
+	      Result => $result1,
+	     },
+    );
+}
+
+my $specification = "
+	-u [<host> <port>]	Run as a UniLang agent
+";
+
+$UNIVERSAL::agent->DoNotDaemonize(1);
+
+my $config = BOSS::Config->new
+  (
+   Spec => $specification,
+   ConfFile => '',
+  );
+my $conf = $config->CLIConfig;
+
+$UNIVERSAL::systemdir = ConcatDir(Dir("minor codebases"),"formalog-pengines");
+
+$UNIVERSAL::agent->Register
+  (
+   Host => defined $conf->{-u}->{'<host>'} ? $conf->{-u}->{'<host>'} : "localhost",
+   Port => defined $conf->{-u}->{'<port>'} ? $conf->{-u}->{'<port>'} : "9000",
+  );
+
+$UNIVERSAL::agent->Listen();

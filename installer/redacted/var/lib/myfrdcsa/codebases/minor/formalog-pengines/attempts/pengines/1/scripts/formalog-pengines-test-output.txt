@@ -1,0 +1,67 @@
+andrewdo@ai:/var/lib/myfrdcsa/codebases/minor/formalog-pengines/attempts/pengines/1/scripts$ ./test.pl 
+Name "main::results" used only once: possible typo at ./test.pl line 25.
+warning: Prolog import export not fully functional
+warning: SWIPL import export not fully functional
+warning: PDDL2_2 import export not fully functional
+{"format":"json"}
+{  "event":"create",  "id":"013fee66-f75f-4f6f-9711-deab8a3c4573",  "slave_limit":-1}
+013fee66-f75f-4f6f-9711-deab8a3c4573
+slave_limit -1
+--- PengineBuilder ----
+alias null
+application sandbox
+ask null
+chunk size 1
+destroy at end of query
+server http://localhost:9881/
+srctext null
+srcurl null
+--- end PengineBuilder ---
+state IDLE
+ask(member(X, [a(taco,A,_A,'B','C D'),b,dag,2,c]),[]).
+http://localhost:9881/pengine/send?format=json&id=013fee66-f75f-4f6f-9711-deab8a3c4573
+ask(member(X, [a(taco,A,_A,'B','C D'),b,dag,2,c]),[]).
+{  "data": [    {      "A":"A",      "X": {"args": ["taco", "A", "_", "B", "C D" ], "functor":"a"}    }  ],  "event":"success",  "id":"013fee66-f75f-4f6f-9711-deab8a3c4573",  "more":true,  "projection": ["X", "A" ],  "time":2.3347000000000005e-5}
+next.
+{  "data": [ {"A":"_", "X":"b"} ],  "event":"success",  "id":"013fee66-f75f-4f6f-9711-deab8a3c4573",  "more":true,  "projection": ["X", "A" ],  "time":9.83500000000003e-6}
+next.
+{  "data": [ {"A":"_", "X":"dag"} ],  "event":"success",  "id":"013fee66-f75f-4f6f-9711-deab8a3c4573",  "more":true,  "projection": ["X", "A" ],  "time":6.296999999999943e-6}
+next.
+{  "data": [ {"A":"_", "X":2} ],  "event":"success",  "id":"013fee66-f75f-4f6f-9711-deab8a3c4573",  "more":true,  "projection": ["X", "A" ],  "time":5.5869999999999314e-6}
+next.
+{  "data": {    "data": [ {"A":"_", "X":"c"} ],    "event":"success",    "id":"013fee66-f75f-4f6f-9711-deab8a3c4573",    "more":false,    "projection": ["X", "A" ],    "time":8.976999999999965e-6  },  "event":"destroy",  "id":"013fee66-f75f-4f6f-9711-deab8a3c4573"}
+<{"A":"A","X":{"args":["taco","A","_","B","C D"],"functor":"a"}}>
+$VAR1 = {
+          'X' => {
+                   'args' => [
+                               'taco',
+                               'A',
+                               '_',
+                               'B',
+                               'C D'
+                             ],
+                   'functor' => 'a'
+                 },
+          'A' => 'A'
+        };
+<{"A":"_","X":"b"}>
+$VAR1 = {
+          'X' => 'b',
+          'A' => '_'
+        };
+<{"A":"_","X":"dag"}>
+$VAR1 = {
+          'A' => '_',
+          'X' => 'dag'
+        };
+<{"A":"_","X":2}>
+$VAR1 = {
+          'A' => '_',
+          'X' => 2
+        };
+<{"A":"_","X":"c"}>
+$VAR1 = {
+          'A' => '_',
+          'X' => 'c'
+        };
+andrewdo@ai:/var/lib/myfrdcsa/codebases/minor/formalog-pengines/attempts/pengines/1/scripts$ 
