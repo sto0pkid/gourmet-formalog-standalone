@@ -23,13 +23,13 @@ if (! $ENV{USER} eq 'root') {
   die "Run as a regular user\n";
 }
 
-die "gourmet-formalog already exists\n" if (-d '/var/lib/myfrdcsa/codebases/minor/gourmet-formalog' and ! $conf->{'-o'});
+# die "gourmet-formalog already exists\n" if (-d '/var/lib/myfrdcsa/codebases/minor/gourmet-formalog' and ! $conf->{'-o'});
 
-if (! -d '/var/lib/myfrdcsa/codebases/minor/gourmet-formalog') {
-  print "CLONING Gourmet-Formalog\n";
-  system 'cd /var/lib/myfrdcsa/codebases/minor/ && git clone https://github.com/aindilis/gourmet-formalog-standalone';
-  system 'mv /var/lib/myfrdcsa/codebases/minor/gourmet-formalog-standalone /var/lib/myfrdcsa/codebases/minor/gourmet-formalog';
-}
+# if (! -d '/var/lib/myfrdcsa/codebases/minor/gourmet-formalog') {
+#  print "CLONING Gourmet-Formalog\n";
+#  system 'cd /var/lib/myfrdcsa/codebases/minor/ && git clone https://github.com/aindilis/gourmet-formalog-standalone';
+#  system 'mv /var/lib/myfrdcsa/codebases/minor/gourmet-formalog-standalone /var/lib/myfrdcsa/codebases/minor/gourmet-formalog';
+# }
 
 print "INSTALLING SWIPL MODULES\n";
 # add halt instruction here
@@ -39,10 +39,10 @@ system "swipl -g \"pack_install('genutils',[interactive(false)]).\"";
 system "cd /var/lib/myfrdcsa/codebases/minor/gourmet-formalog/scripts/process && swipl -g \"pack_install('expanded_string_utils-1.0.0.tgz',[interactive(false)]).\"";
 system "cd /var/lib/myfrdcsa/codebases/minor/gourmet-formalog/scripts/process && swipl -g \"pack_install('tsv_read_and_assert-1.0.0.tgz',[interactive(false)]).\"";
 
-if (! -d '/var/lib/myfrdcsa/codebases/minor/formalog-pengines') {
-  print "INSTALLING Formalog-Pengines\n";
-  system 'cd /var/lib/myfrdcsa/codebases/minor && wget https://frdcsa.org/~andrewdo/formalog-pengines-20210814.tgz && tar xzf ./formalog-pengines-20210814.tgz';
-}
+# if (! -d '/var/lib/myfrdcsa/codebases/minor/formalog-pengines') {
+#  print "INSTALLING Formalog-Pengines\n";
+#  system 'cd /var/lib/myfrdcsa/codebases/minor && wget https://frdcsa.org/~andrewdo/formalog-pengines-20210814.tgz && tar xzf ./formalog-pengines-20210814.tgz';
+# }
 
 if ($hostname ne 'ai2.frdcsa.org') {
   print "COPYING PROLOG DEPENDENCIES TO CORRECT LOCATIONS\n";

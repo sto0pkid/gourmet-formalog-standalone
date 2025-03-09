@@ -11,6 +11,7 @@ EXPOSE 9883
 RUN useradd andrewdo
 WORKDIR /home/andrewdo
 
+COPY . /var/lib/myfrdcsa/codebases/minor/gourmet-formalog
 COPY scripts/setup.sh /home/andrewdo/
 COPY scripts/setup.pl /home/andrewdo/
 COPY scripts/run.sh /home/andrewdo/
